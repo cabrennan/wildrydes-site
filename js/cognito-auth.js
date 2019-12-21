@@ -1,10 +1,10 @@
+
 /*global WildRydes _config AmazonCognitoIdentity AWSCognito*/
 
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
-    var signoutUrl = '/signout.html';
 
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
@@ -50,8 +50,8 @@ var WildRydes = window.WildRydes || {};
 
 
     /*
-     * Cognito User Pool functions
-     */
+ *      * Cognito User Pool functions
+ *           */
 
     function register(email, password, onSuccess, onFailure) {
         var dataEmail = {
@@ -84,12 +84,6 @@ var WildRydes = window.WildRydes || {};
         });
     }
 
-
-    function signout() {
-      var cognitoUser = userPool.getCurrentUser();
-      cognitoUser.signOut();
-    }
-
     function verify(email, code, onSuccess, onFailure) {
         createCognitoUser(email).confirmRegistration(code, true, function confirmCallback(err, result) {
             if (!err) {
@@ -112,12 +106,11 @@ var WildRydes = window.WildRydes || {};
     }
 
     /*
-     *  Event Handlers
-     */
+ *      *  Event Handlers
+ *           */
 
     $(function onDocReady() {
         $('#signinForm').submit(handleSignin);
-        $('#signoutForm').submit(handleSignout);
         $('#registrationForm').submit(handleRegister);
         $('#verifyForm').submit(handleVerify);
     });
@@ -136,20 +129,6 @@ var WildRydes = window.WildRydes || {};
             }
         );
     }
-
-    function handleSignout(event) {
-        var cognitoUser = userPool.getCurrentUser();
-        event.preventDefault();
-        signout( 
-            function signoutSuccess() {
-                console.log('Successfully Logged Out');
-                window.location.href = 'signin.html';
-            },
-            function signoutError(err) {
-                alert(err);
-            } 
-	);
-	}
 
     function handleRegister(event) {
         var email = $('#emailInputRegister').val();
