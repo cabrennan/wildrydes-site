@@ -41,9 +41,11 @@
 
         <section class="form-wrap">
             <h1>Sign In</h1>
-            <form id="signoutForm">
-              <h3>Are you sure you want to sign out?</h3>
-              <input type="submit" value="Sign Out">
+            <form id="signinForm">
+              <input type="email" id="emailInputSignin" placeholder="Email" required>
+              <input type="password" id="passwordInputSignin" placeholder="Password" pattern=".*" required>
+
+              <input type="submit" value="Sign in">
             </form>
         </section>
 
